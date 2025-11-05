@@ -1,10 +1,10 @@
 # Plan de tests – Triangulator
 
 ## 1. Tests unitaires de la logique de triangulation
-- Cas nominal : 3 points → 1 triangle (comportement attendu de base)
-- Cas limite : 0, 1, 2 points → 0 triangle (doit renvoyer une liste vide)
-- Points colinéaires → triangulation vide ou gérée
-- Points en double → dédoublonnage ou gestion robuste
+- Cas nominal : 3 points -> 1 triangle (comportement attendu de base)
+- Cas limite : 0, 1, 2 points -> 0 triangle (doit renvoyer une liste vide)
+- Points colinéaires -> triangulation vide ou gérée
+- Points en double -> dédoublonnage ou gestion robuste
 
 ## 2. Tests de sérialisation binaire
 - Encodage/décodage de PointSet (struct "I" + "ff") (structure binaire exacte: 4 octets pour le nombre, puis paires de float)
