@@ -1,6 +1,6 @@
 [tool.ruff]
-select = ["E", "W", "F", "D"]
-ignore = []
+lint.select = ["E", "W", "F", "D"]
+lint.ignore = []
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"

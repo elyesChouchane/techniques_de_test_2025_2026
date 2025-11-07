@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>triangulator.app API documentation</title>
-<meta name="description" content="">
+<meta name="description" content="API Flask du service Triangulator.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,6 +36,7 @@ el.replaceWith(d);
 <h1 class="title">Module <code>triangulator.app</code></h1>
 </header>
 <section id="section-intro">
+<p>API Flask du service Triangulator.</p>
 </section>
 <section>
 </section>
@@ -54,6 +55,15 @@ el.replaceWith(d);
 </summary>
 <pre><code class="python">@app.route(&#39;/triangulate&#39;, methods=[&#39;POST&#39;])
 def triangulate_endpoint():
+    &#34;&#34;&#34;Endpoint principal pour demander une triangulation.
+
+    Attend un JSON avec &#39;pointSetId&#39;.
+    Récupère les points via PointSetManager, calcule la triangulation,
+    et renvoie le résultat en binaire.
+
+    Returns:
+        Response: Données binaires de type Triangles ou erreur JSON.
+    &#34;&#34;&#34;
     pointset_id = request.json.get(&#39;pointSetId&#39;)
     if not pointset_id:
         return jsonify({&#34;error&#34;: &#34;pointSetId requis&#34;}), 400
@@ -68,11 +78,11 @@ def triangulate_endpoint():
         points = decode_pointset(resp.content)
         triangles = triangulate(points)
 
-        # Encoder les sommets
+        # Encoder les sommets (format PointSet)
         out_data = encode_pointset(points)
         # Encoder le nombre de triangles
         out_data += struct.pack(&#34;I&#34;, len(triangles))
-        # Encoder chaque triangle (3 indices)
+        # Encoder chaque triangle (3 indices unsigned long)
         for a, b, c in triangles:
             out_data += struct.pack(&#34;III&#34;, a, b, c)
 
@@ -81,7 +91,15 @@ def triangulate_endpoint():
     except Exception as e:
         return jsonify({&#34;error&#34;: str(e)}), 500</code></pre>
 </details>
-<div class="desc"></div>
+<div class="desc"><p>Endpoint principal pour demander une triangulation.</p>
+<p>Attend un JSON avec 'pointSetId'.
+Récupère les points via PointSetManager, calcule la triangulation,
+et renvoie le résultat en binaire.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Response</code></dt>
+<dd>Données binaires de type Triangles ou erreur JSON.</dd>
+</dl></div>
 </dd>
 </dl>
 </section>

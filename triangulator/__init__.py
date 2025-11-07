@@ -1,1 +1,1 @@
-# Rend le dossier importable
+"""Package du micro-service Triangulator."""

@@ -1,3 +1,5 @@
+"""API Flask du service Triangulator."""
+
 import struct
 import io
 import requests
@@ -7,8 +9,18 @@ from .triangulation import triangulate
 
 app = Flask(__name__)
 
+
 @app.route('/triangulate', methods=['POST'])
 def triangulate_endpoint():
+    """Endpoint principal pour demander une triangulation.
+
+    Attend un JSON avec 'pointSetId'.
+    Récupère les points via PointSetManager, calcule la triangulation,
+    et renvoie le résultat en binaire.
+
+    Returns:
+        Response: Données binaires de type Triangles ou erreur JSON.
+    """
     pointset_id = request.json.get('pointSetId')
     if not pointset_id:
         return jsonify({"error": "pointSetId requis"}), 400
@@ -23,11 +35,11 @@ def triangulate_endpoint():
         points = decode_pointset(resp.content)
         triangles = triangulate(points)
 
-        # Encoder les sommets
+        # Encoder les sommets (format PointSet)
         out_data = encode_pointset(points)
         # Encoder le nombre de triangles
         out_data += struct.pack("I", len(triangles))
-        # Encoder chaque triangle (3 indices)
+        # Encoder chaque triangle (3 indices unsigned long)
         for a, b, c in triangles:
             out_data += struct.pack("III", a, b, c)
 

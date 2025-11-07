@@ -1,4 +1,6 @@
-import pytest
+"""Configuration pytest pour les marqueurs personnalisés."""
+
 
 def pytest_configure(config):
-    config.addinivalue_line("markers", "performance: performance tests")
+    """Ajoute le marqueur 'performance' pour les tests de performance."""
+    config.addinivalue_line("markers", "performance: tests de performance")
