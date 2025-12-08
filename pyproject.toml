@@ -1,0 +1,9 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I"] # Style, Erreurs, Imports
+
+[tool.pytest.ini_options]
+markers = [
+    "perf: tests de performance",
+]
+pythonpath = [ "." ]

@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tests & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Environnements virtuels
+venv/
+env/
+.env
+
+# Documentation générée
+docs/
+!docs/.gitkeep
+
+# IDE configuration (VS Code / PyCharm)
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db

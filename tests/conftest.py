@@ -1,0 +1,11 @@
+import pytest
+
+from src.app import app as flask_app
+
+
+@pytest.fixture
+def client():
+    """Fixture pour simuler un client Flask."""
+    flask_app.config['TESTING'] = True
+    with flask_app.test_client() as client:
+        yield client
