@@ -1,0 +1,24 @@
+# --- Python & Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Tests & Coverage (Les fameux fichiers HTML) ---
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.html
+
+# --- Outils de Qualité (Ruff / Mypy) ---
+.ruff_cache/
+.mypy_cache/
+
+# --- Environnement Virtuel ---
+env/
+venv/
+.env
+
+# --- IDE (VS Code / PyCharm) ---
+.vscode/
+.idea/
