@@ -1,3 +1,4 @@
+"""Script de démonstration manuelle du Triangulator."""
 from src.core import triangulate_points
 
 print("--- DÉBUT DE LA DÉMO ---")

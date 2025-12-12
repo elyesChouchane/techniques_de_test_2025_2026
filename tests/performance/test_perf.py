@@ -1,26 +1,26 @@
-"""Tests de performance de la triangulation."""
+"""Tests de performance pour le Triangulator."""
 import pytest
-import random
 import time
-from src.core import triangulate_points  # <--- Correction de l'import
-
+from unittest.mock import Mock
+from src.core import Triangulator
 
 @pytest.mark.performance
-def test_perf_100_triangles():
-    """Mesure le temps de calcul pour 100 triangulations successives."""
-    # Génération de 300 points aléatoires (pour faire 100 triangles de 3 points)
-    points = [(random.random(), random.random()) for _ in range(300)]
+def test_perf_100_triangulations():
+    """Vérifie que 100 appels au composant sont rapides."""
+    # 1. Setup : On crée un mock rapide qui renvoie toujours un triangle valide
+    mock_manager = Mock()
+    mock_manager.get_points.return_value = [(0, 0), (10, 0), (5, 10)]
 
-    start = time.time()
+    triangulator = Triangulator(manager=mock_manager)
 
-    # On boucle 100 fois pour trianguler des groupes de 3 points
-    for i in range(0, 300, 3):
-        p1 = points[i]
-        p2 = points[i+1]
-        p3 = points[i+2]
-        triangulate_points(p1, p2, p3)
+    start_time = time.time()
 
-    duration = time.time() - start
-    
-    # Vérification que les 100 calculs prennent moins d'une seconde
+    # 2. Exécution : 100 appels
+    for i in range(100):
+        # On utilise un ID fictif différent à chaque fois
+        triangulator.triangulate(f"perf_id_{i}")
+
+    duration = time.time() - start_time
+
+    # 3. Validation : Moins de 1 seconde (c'est très large)
     assert duration < 1.0
