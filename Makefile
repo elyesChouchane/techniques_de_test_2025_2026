@@ -15,4 +15,4 @@ lint:
 	ruff check .
 
 doc:
-	pdoc3 triangulator --html --output-dir docs
+	pdoc3 src --html --output-dir docs --force
